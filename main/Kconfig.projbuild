@@ -79,11 +79,11 @@ config MY_DO_UPLOAD_TO_UDP_SERVER
     default 0 if MY_DO_UPLOAD_TO_UDP_SERVER_NO
 
 config MY_UDP_SERVER_HOSTNAME
-    string "MY_UDP_SERVER_HOSTNAME Examples: 192.168.0.94 , www.google.com"
+    string "MY_UDP_SERVER_HOSTNAME Examples: 192.168.0.94 192.168.0.95 www.google.com"
     default "192.168.0.94"
 
 config MY_UDP_SERVER_PORT
-    int "MY_UDP_SERVER_PORT Examples: 3001, 12399"
+    int "MY_UDP_SERVER_PORT Examples: 3001 for .94, 12703 for .95"
     default 3001
 
 endmenu

@@ -6,6 +6,7 @@
 #include "driver/rtc_io.h"
 
 #include "mjd.h"
+#include "mjd_lolind32.h"
 #include "mjd_net.h"
 #include "mjd_wifi.h"
 
@@ -202,7 +203,11 @@ void main_task(void *pvParameter) {
         char message[128];
         char current_time[14 + 1];
         mjd_get_current_time_yyyymmddhhmmss(current_time);
-        sprintf(message, "<~>\r\n%s\r\n%s\r\n1", MY_DEVICE_ID, current_time);
+        float battery_voltage = mjd_lolind32_get_battery_voltage();
+        ESP_LOGI(TAG, "LOLIN D32 battery voltage (V): %4.2f", battery_voltage);
+
+        sprintf(message, "<~>\r\n%s\r\n%s\r\n%4.2f\r\n1", MY_DEVICE_ID, current_time, battery_voltage);
+        ESP_LOGI(TAG, "UDP message: %s", message);
 
         f_retval = mjd_net_udp_send_buffer(MY_UDP_SERVER_HOSTNAME, MY_UDP_SERVER_PORT, (uint8_t *) message,
                 strlen(message));

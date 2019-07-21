@@ -1,17 +1,6 @@
 https://github.com/pantaluna/esp32_hcsr501_pir_sensor_deep_sleep_udp_using_lib
 
-iot
-esp32
-esp-idf
-espressif
-PIR
-sensor
-HC-SR501
-MH-SR602
-AM312
-deep-sleep
-udp
-wifi
+iot esp32 esp-idf espressif pir motion-sensor hc-sr501 mh-sr602 am312 deep-sleep udp wifi
 
 C:\myiot\esp\esp32_hcsr501_pir_sensor_deep_sleep_udp_using_lib
 
@@ -45,7 +34,7 @@ git rev-parse HEAD
 git status
 ```
 
-***NOTYETUSED*** SOP Upload source updates to GitHub
+SOP Upload source updates to GitHub
 -----------------------------------
 ```
 DIR_REPO_NAME=esp32_hcsr501_pir_sensor_deep_sleep_udp_using_lib
@@ -56,7 +45,7 @@ git commit -m "Updated"
 git config credential.helper store
 git push --set-upstream origin master
 
-git tag --annotate v1.1 --message "................"
+git tag --annotate v1.1 --message "Add battery voltage to the UDP message"
 git push origin --tags
 
 git describe --tags --dirt

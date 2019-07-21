@@ -1,9 +1,9 @@
 ## Project Description
-This project uses a PIR sensor to detect human movement in a room. When the device is booting up for the first time then it synchronizes the datetime (GMT time zone) on the device using the SNTP protocol and goes into deep sleep. The app wakes up each time a movement is detected and optionally connects to a WiFi access point and uploads a movement-detected message (device id + datetime) to a UDP server of your choice. 
+This project uses a PIR sensor to detect human movement in a room. When the device is booting up for the first time then it synchronizes the datetime (GMT time zone) on the device using the SNTP protocol and goes into deep sleep. The app wakes up each time a movement is detected and optionally connects to a WiFi access point and uploads a movement-detected message (device id + datetime + battery voltage) to a UDP server of your choice.
 
-The app remains in deep sleep most of the time to minimize power consumption. In deep sleep a decent ESP32 board consumes 70 microAmp and the quiescent current of the PIR sensor is microAmp (for the MH-SR602 model). The most power will be consumed when uploading data to the UDP server because it uses Wifi but that timespan is kept as short as possible.
+The app remains in deep sleep most of the time to minimize power consumption. In deep sleep a decent ESP32 board consumes 70 microAmp and the quiescent current of the PIR sensor is 20 microAmp (for the MH-SR602 model). The most power will be consumed when uploading data to the UDP server because it uses Wifi but that timespan is kept as short as possible.
 
-A LDR photoresistor model 5528 (bright=8-20 KiloOhm, dark=1 MegaOhm) can be soldered to the PIR sensor so that the sensor is only enabled when it is dark.
+A LDR photoresistor model 5528 (bright = 8-20 KiloOhm, dark = 1 MegaOhm) can be soldered to the PIR sensor so that the sensor is only enabled when it is dark.
 
 Tip: you can also replace the PIR sensor with another type of switch such as the MC-38 Normally Opened magnetic reed switch. 
 
@@ -46,7 +46,9 @@ git clone -b v3.2 --recursive https://github.com/espressif/esp-idf.git esp-idf-v
 
 
 ## Wiring Instructions
-Check out the subdirectory "components/mjd_hcsr501" for installation/wiring/usage instructions, data sheets, FAQ, photo's, etc. for the hardware and software.
+Go to the subdirectory "_doc".
+
+Go to the subdirectory "components/mjd_hcsr501" for installation/wiring/usage instructions, data sheets, FAQ, photo's, etc. for the hardware and software.
 
 
 
@@ -158,7 +160,9 @@ I (3080) myapp: MY_DEVICE_ID:               pir001
 I (3090) myapp: MY_DO_UPLOAD_TO_UDP_SERVER: 1
 I (3090) myapp: MY_UDP_SERVER_HOSTNAME:     192.168.0.94
 I (3100) myapp: MY_UDP_SERVER_PORT:         3001
-I (3110) myapp: OK UDP buffer sent
+I (3100) myapp: LOLIN D32 battery voltage (V): 3.89
+I (3584) myapp: UDP message: <~> devpir001 20190720182255 4.24 1
+I (3594) myapp: OK UDP buffer sent
 
 ===SECTION: cleanup, WIFI DEINIT===
 I (3110) mjd_wifi: Disconnecting from WIFI network...
