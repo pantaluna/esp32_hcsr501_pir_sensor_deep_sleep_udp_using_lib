@@ -1,7 +1,19 @@
 ## Project Description
-This project uses a PIR sensor to detect human movement in a room. When the device is booting up for the first time then it synchronizes the datetime (GMT time zone) on the device using the SNTP protocol and goes into deep sleep. The app wakes up each time a movement is detected and optionally connects to a WiFi access point and uploads a movement-detected message (device id + datetime + battery voltage) to a UDP server of your choice.
+This project uses a PIR sensor to detect human movement in a room.
 
-The app remains in deep sleep most of the time to minimize power consumption. In deep sleep a decent ESP32 board consumes 70 microAmp and the quiescent current of the PIR sensor is 20 microAmp (for the MH-SR602 model). The most power will be consumed when uploading data to the UDP server because it uses Wifi but that timespan is kept as short as possible.
+When the device is booting for the first time then it synchronizes the datetime (GMT time zone) on the device using the SNTP protocol and goes into deep sleep.
+
+The app wakes up from deep sleep each time a movement is detected and optionally connects to a WiFi access point and uploads a movement-detected message (device id + datetime + battery voltage) to a UDP server of your choice.
+
+The app remains in deep sleep most of the time to minimize power consumption. In deep sleep, a decent ESP32 board consumes 70 microAmp and the quiescent current of the PIR sensor is 20 microAmp (for the MH-SR602 model). The most power will be consumed when uploading data to the UDP server because it uses Wifi but that timespan is kept as short as possible.
+
+The app can further be configured as follows:
+
+* The datetime on the ESP32 device deviates too much during deep sleep; typically +23 seconds per hour. So it is essential to correct the datetime on the device on a regularly basis using the SNTP protocol (this requires Wifi Internet access). The default is every 250 boot cycles. It can be configured in `menu config`. It is not done during every boot cycle to reduce power consumption (less use of Wifi).
+
+- Sometimes you want to ignore new trigger events from the sensor that come too quick after a genuine trigger of the sensor. For example: you are only interested if a conference room was used on an hourly basis, not every second. You can specify how many seconds the app is ignoring new trigger events after a genuine trigger event. The default is 30 seconds. It can be configured in `menu config`. This setting also reduces power consumption (less use of Wifi).
+
+
 
 A LDR photoresistor model 5528 (bright = 8-20 KiloOhm, dark = 1 MegaOhm) can be soldered to the PIR sensor so that the sensor is only enabled when it is dark.
 
@@ -58,8 +70,10 @@ Go to the subdirectory "components/mjd_hcsr501" for installation/wiring/usage in
 - Run `make menuconfig`
   - Select "PROJECT CONFIGURATION"
     - Specify the on-board LED GPIO#
-    - Specify the GPIO# of the input pin (default 27)
     - Specify the WiFi SSID and Password.
+    - Specify the GPIO# of the input pin (default 27)
+    - Specify how frequently the actual datetime on the device is synchronized using SNTP. This feature is required because the datetime on the device deviates too much during deep sleep (default 250).
+    - Specify how many seconds the sensor is ignoring new trigger events after a genuine trigger event (default 30).
     - Specify if you want to Upload to UDP Server y/n
     - Specify the UDP Server hostname and IPV4 address.
 - Exit menuconfig

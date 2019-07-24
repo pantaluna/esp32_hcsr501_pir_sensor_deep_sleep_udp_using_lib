@@ -54,14 +54,22 @@ config MY_WIFI_PASSWORD
 ##
 ## DEVICE
 config MY_DEVICE_ID
-    string "MY_DEVICE_ID [default pir001]"
-    default "pir001"
+    string "MY_DEVICE_ID [default devpir01]"
+    default "devpir01"
+
+config MY_DEVICE_SNTP_RESYNC_AFTER_X_BOOTS
+    int "MY_DEVICE_SNTP_RESYNC_AFTER_X_BOOTS The datetime during deep sleep deviates too much [default 250]"
+    default 250
 
 ##
 ## SENSOR
 config MY_SENSOR_GPIO_INPUT_PIN
     int "MY_SENSOR_GPIO_INPUT_PIN pir_sensor/button [default 27]"
     default 27
+    
+config MY_SENSOR_BLOCKING_TIME_AFTER_TRIGGER_SECONDS
+    int "MY_SENSOR_BLOCKING_TIME_AFTER_TRIGGER_SECONDS [default 30]"
+    default 30
 
 ##
 ## UDP SERVER    
