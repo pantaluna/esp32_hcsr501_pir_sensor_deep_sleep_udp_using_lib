@@ -40,17 +40,10 @@ int mjd_compare_ints(const void * a, const void * b) {
  * BYTES and BINARY REPRESENTATION
  */
 
-/*
- * Convert uint8_t to binary coded decimal
- */
 uint8_t mjd_byte_to_bcd(uint8_t val) {
     return ((val / 10 * 16) + (val % 10));
 }
 
-/*
- * Convert binary coded decimal to uint8_t
- * @doc 4 bits for each decimal digit.
- */
 uint8_t mjd_bcd_to_byte(uint8_t val) {
     return ((val / 16 * 10) + (val % 16));
 }
@@ -340,9 +333,6 @@ void mjd_rtos_wait_forever() {
     }
 }
 
-/**********
- * ESP32 SYSTEM
- */
 /**********
  * ESP32 SYSTEM
  */
